@@ -1,0 +1,63 @@
+RewriteOptions inherit
+#BUILDER-START#
+# Enable rewriting.
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+Header add Vary "User-Agent"
+Header add X-Generated "%t"
+Options -Indexes
+Options +FollowSymLinks
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^$ index.html
+RewriteRule ^([^/]+)/([^/]+)/?.*$ $1_$2.html
+RewriteRule ^([^/]+)/$ $1.html
+RewriteRule ^([\w_-]+)$ $1.html
+#BUILDER-END#
+
+# Error Pages
+ErrorDocument 403 /404.shtml
+ErrorDocument 404 /404.shtml
+ErrorDocument 500 /404.shtml
+
+# Redirect 301
+Redirect 301 /news https://news.soozadigital.com
+Redirect 301 /mktpublik https://mktpublik.com
+
+# Redirect 301 /midia https://midia.com/soozadigital 
+Redirect 301 /blog https://news.soozadigital.com
+Redirect 301 /instagram https://instagram.com/soozadigital
+Redirect 301 /facebook https://facebook.com/soozadigital
+Redirect 301 /x https://x.com/soozadigital
+Redirect 301 /twitter https://twitter.com/soozadigital
+Redirect 301 /threads https://threads.net/soozadigital
+Redirect 301 /linkedin https://linkedin.com/company/soozadigital
+Redirect 301 /github https://github.com/soozadigital
+Redirect 301 /youtube https://youtube.com/@soozadigital
+Redirect 301 /pinterest https://pinterest.com/soozadigital
+Redirect 301 /whatsapp https://wa.me/message/434AZXD7YKXWN1
+Redirect 301 /telegram https://t.me/soozadigital
+Redirect 301 /tiktok https://tiktok.com/@soozadigital
+Redirect 301 /kwai https://kwai.com/@soozadigital
+
+
+# Redirect 301 /kilo http://news.soozadigital.com
+ 
+# This will redirect a subdomain to another domain
+# RewriteEngine On
+# RewriteCond %{HTTP_HOST} ^blog\.soozadigital\.com$ [NC]
+# RewriteRule ^(.*) http://news.soozadigital.com/$1 [L,R]
+
+#remover extensão de arquivo da url
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php82” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
